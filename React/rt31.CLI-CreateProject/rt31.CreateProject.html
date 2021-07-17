@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Mobile Project</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <!-- CSS import -->
+    <link rel="stylesheet" href="../css/reset.css">
+
+</head>
+<body>
+
+    <div style="margin-top: 40px;">
+        <a href="#" onClick="window.open('../../ES2016문법/ap01.docs/npm사용법.html','npm사용법','width=800,height=400,toolbar=no,menubar=no,scrollbars=no,resizable=yes');return false;" rel="nofollow">npm 사용법</a>
+    </div>
+
+    <xmp>
+        React CLI 을 사용하여 Crud 어플리케이션을 만들어 본다.
+
+
+        1. 프로젝트 생성 작업
+            step 1-01. 프로젝트 생성
+                $ npx create-react-app reactprj01  # 프로젝트명은 소문자로 만들어야 함.
+                $ ls                # reactprj01 폴더가 보이는지 확인
+                $ cd reactprj01     # reactprj01 폴더로 이동
+                $ ls                # package.json 파일이 보이는지 확인
+                $ npm run start     # package.json 파일이 보이면 서버 실행
+
+
+            step 1-02. propTpyes 정의하면 디버그시 편하다. prop-types 설치
+                $ npm install --save prop-types
+
+
+            step 1-08. immer 설치
+                $ npm install immer --save
+
+
+            step 1-04. 라우팅 처리
+                $ npm install --save react-router-dom history react-router-redux
+
+
+            step 1-05. install React redux
+                redux : flux 기반의 상태 관리 라이브러리
+                react-redux : react에서 redux를 사용할 수있게 하는 라이브러리
+                redux-actions : redux용 action을 정의하기 위한 라이브러리
+                redux-logger : redux용 로깅 처리를 위한 미들웨어
+                redux-toolkit :
+                redux-devtools-extension : 스토어의 상태를 개발자 도구에서 조회 할 수 있는 크롬 확장 프로그램
+
+                $ npm install --save redux react-redux redux-actions redux-saga
+                $ npm install --save redux-logger
+                $ npm install --save-dev redux-devtools
+
+
+            step 1-07. 비동기 처리
+                $ npm install --save redux-saga redux-thunk axios
+
+
+            step 1-09. reselect 설치
+                $ npm install --save reselect
+
+
+            step 1-03. install the Bootstrap 4
+                $ npm install --save bootstrap
+
+
+            step 1-06. install material-ui
+                $ npm install --save @material-ui/core
+
+
+            step 1-11. 프로젝트 실행
+                $ ls # package.json 보이는지 확인
+                $ npm run start # package.json 보이면 서버 실행
+
+
+            step 1-12. 코드 표준화 검사
+                $ npm run lint
+
+
+            step 1-13. 배포용 파일 빌드. /dist/ 폴더에 파일 만들어짐.
+                $ npm run build
+
+
+        2. 프로젝트 폴더 구조
+            프로젝트
+            ├─ dist # 빌드 결과물 폴더
+            ├─ node_modules # npm 모듈(패키지) 저장 폴더
+            ├─ public # 배포 버전을 빌드할 때 사용하는 파일.
+            │ ├─ index.html
+            │ └─ favion.ico
+            ├─ src # 소스 코드 폴더
+            │ ├─ actions (리덕스 액션함수)
+            │ ├─ api (API 모듈)
+            │ ├─ assets (기타 자원)
+            │ ├─ common (공통)
+            │ ├─ components (일반 켬포넌트)
+            │ ├─ containers (일반 켬포넌트)
+            │ ├─ constant (상수)
+            │ ├─ models (데이터 모델 변수, 타입)
+            │ ├─ pages (페이지 컴포넌트)
+            │ ├─ reducers (리덕스의 리듀서)
+            │ ├─ store (Redux 관련 코드)
+            │ ├─ styles (스타일시트)
+            │ ├─ utils (유틸리티 모듈)
+            │ ├─ App.css
+            │ ├─ App.js
+            │ └─ index.js
+            ├─ package.json
+            └─ README.md
+
+
+        3. 프로젝트 디렉토리 및 파일 생성
+            3.1 디렉토리 생성
+            $ mkdir -p ./src/actions \
+                       ./src/api \
+                       ./src/assets \
+                       ./src/assets/images \
+                       ./src/assets/style \
+                       ./src/assets/text \
+                       ./src/common \
+                       ./src/components \
+                       ./src/containers \
+                       ./src/constant \
+                       ./src/models \
+                       ./src/pages \
+                       ./src/reducers \
+                       ./src/store \
+                       ./src/styles \
+                       ./src/utils
+
+            3.2 프로젝트 공통 파일 생성
+            $ touch ./src/common/createItemsLogic.js \
+                    ./src/common/createReducer.js \
+                    ./src/common/mergeReducers.js \
+                    ./src/reducers/index.js \
+                    ./src/store/index.js
+
+
+    </xmp>
+
+</body>
+</html>

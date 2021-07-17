@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Mobile Project</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <!-- CSS import -->
+    <link rel="stylesheet" href="../css/reset.css">
+
+</head>
+<body>
+
+    <div style="margin-top: 40px;">
+        <a href="#" onClick="window.open('../../ES2016문법/ap01.docs/npm사용법.html','npm사용법','width=800,height=400,toolbar=no,menubar=no,scrollbars=no,resizable=yes');return false;" rel="nofollow">npm 사용법</a>
+    </div>
+
+    <xmp>
+        React CLI 을 사용하여 Crud 어플리케이션을 만들어 본다.
+
+
+        1. 프로젝트 생성 작업
+            step 1-01. 프로젝트 생성
+                $ npx create-react-app crudreact  # 프로젝트명은 소문자로 만들어야 함.
+                $ ls                # crudreact 폴더가 보이는지 확인
+                $ cd crudreact      # crudreact 폴더로 이동
+                $ ls                # package.json 파일이 보이는지 확인
+                $ npm run start     # package.json 파일이 보이면 서버 실행
+
+
+            step 1-02. 프로젝트 root에 .env 파일을 만들고 아래 코드를 추가 한다.
+                SKIP_PREFLIGHT_CHECK=true
+
+
+            step 1-03. install the Bootstrap 4
+                $ npm install --save bootstrap
+
+
+            step 1-04. 라우팅 처리
+                $ npm install --save react-router-dom history react-router-redux
+
+
+            step 1-05. install React redux
+                $ npm install --save redux react-redux redux-logger
+                $ npm install --save-dev redux-devtools
+
+
+            step 1-06. install material-ui
+                $ npm install --save @material-ui/core
+
+
+            step 1-07. 비동기 처리
+                $ npm install --save redux-saga redux-thunk axios
+
+
+            step 1-08. immer 설치
+                $ npm install immer --save
+
+
+            step 1-09. reselect 설치
+                $ npm install --save reselect
+
+
+            step 1-11. 프로젝트 실행
+                $ ls # package.json 보이는지 확인
+                $ npm run start # package.json 보이면 서버 실행
+
+
+            step 1-12. 코드 표준화 검사
+                $ npm run lint
+
+
+            step 1-13. 배포용 파일 빌드. /dist/ 폴더에 파일 만들어짐.
+                $ npm run build
+
+
+
+
+        2. 프로젝트 폴더 구조
+            프로젝트
+            ├─ dist # 빌드 결과물 폴더
+            ├─ node_modules # npm 모듈(패키지) 저장 폴더
+            ├─ public # 배포 버전을 빌드할 때 사용하는 파일.
+            │ └─ index.html
+            │ └─ favion.ico
+            └─ src # 소스 코드 폴더
+            │ └─ assets # 기타 자원
+            │ │ └─ logo.png
+            │ ├─ components # 컴포넌트
+            │ ├─ store #
+            │ ├─ router # 라우터
+            │ ├─ reducers #
+            │ ├─ utils #
+            │ ├─ views # 라우터 페이지
+            │ ├─ App.js
+            │ └─ index.js
+            ├─ package.json
+            └─ README.md
+
+
+        3. 프로젝트 폴더 및 파일 생성
+            3.1 폴더 생성
+            $ mkdir -p ./src/assets \
+                    ./src/assets/images \
+                    ./src/assets/style \
+                    ./src/assets/text \
+                    ./src/common \
+                    ./src/components \
+                    ./src/reducers \
+                    ./src/routers \
+                    ./src/store \
+                    ./src/utils \
+                    ./src/views
+
+            3.2 프로젝트 공통 파일 생성
+            $ touch ./src/common/createItemsLogic.js \
+                    ./src/common/createReducer.js \
+                    ./src/common/mergeReducers.js \
+                    ./src/reducers/index.js \
+                    ./src/store/index.js
+
+
+            3.3 프로젝트 컴포넌트 파일 생성
+            $ mkdir -p ./src/components/timelines \
+                    ./src/components/frineds \
+                    ./src/reducers \
+                    ./src/views
+
+            $ touch ./src/components/timelines/TimelineList.js \
+                    ./src/components/frineds/FriendList.js \
+                    ./src/reducers/timeline.js \
+                    ./src/reducers/frined.js \
+                    ./src/views/TimelineMain.js \
+                    ./src/views/FriendMain.js \
+                    ./src/store/index.js
+
+
+
+        4. 프로젝트 초기 설정.
+            프로젝트의 폴더 구조
+            └─ public/index.html 에 설정
+
+            4-1. fontawesome 설정
+            <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css">
+
+            4-2. ubuntu 폰트 설정
+            <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+
+            4-3. bootstrap 설정
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+            4-4. index.html 에 reset.css 설정
+            <link rel="stylesheet" href="%PUBLIC_URL%/reset.css">
+
+            4-5. index.html 에 style 설정
+            <style>
+                .strong {color:red; font-weight:bold; font-size:1.2em;}
+                label { display: inline-block; width: 80px;}
+                #app > div { margin: 5px 0 ;}
+            </style>
+
+            4-6. reset.css  ~/public/ 에 복사
+
+        5. 프로젝트 1차 구현
+            5-1. 컴포넌트 생성
+                $ mkdir ~/src/components
+                $ mkdir ~/src/components/crud
+                $ touch ~/src/components/crud/CrudApp.js
+                $ touch ~/src/components/crud/CrudInput.js
+                $ touch ~/src/components/crud/CrudList.js
+                $ touch ~/src/components/crud/CrudListItem.js
+
+            5-2. 컴포넌트 구현
+                $ ~/src/components/crud/CrudApp.js 수정
+                    import React, { Component } from 'react';
+                    import CrudInput from './CrudInput';
+                    import CrudList from './CrudList';
+                    ...중략
+                    export default CrudApp;
+
+
+                $ ~/src/components/crud/CrudInput.js
+                    import React, { Component } from 'react';
+                    ...중략
+                    export default CrudInput;
+
+                $ ~/src/components/CrudList.js 수정
+                    import React, { Component } from 'react';
+                    import CrudListItem from './CrudListItem';
+                    ...중략
+                    export default CrudList;
+
+                $ ~/src/components/crud/CrudListItem.js
+                    import React, { Component } from 'react';
+                    ...중략
+                    export default CrudListItem;
+
+            5-3. 라우팅 설정
+                $ ~/src/index.js 수정
+                변경 전 : import App from '../src/App';
+                변경 후 : import App from '../src/components/crud/CrudApp';
+
+            5-4. 프로젝트 폴더 구조
+                ├─ dist                     # 빌드 결과물 폴더
+                ├─ node_modules             # npm 모듈(패키지) 저장 폴더
+                ├─ public                   # 배포 버전을 빌드할 때 사용하는 파일.
+                │   ├─ favion.ico
+                │   ├─ index.html
+                │   ├─ logo192.png
+                │   ├─ logo512.png
+                │   ├─ manifest.json
+                │   └─ robots.txt
+                │   └─ reset.css           #
+                ├─ src
+                │   └─ components           # 폴더 생성
+                │   │  └─ todo              # 폴더 생성
+                │   │  └─ login             # 폴더 생성
+                │   │  └─ crud              # 폴더 생성
+                │   │      ├─ CrudApp.js
+                │   │      ├─ TodoInput.js
+                │   │      ├─ CrudList.js
+                │   │      └─ CrudListItem.js
+                │   ├─ views                # 라우터 페이지
+                │   ├─ router               # 라우터
+                │   ├─ App.css
+                │   ├─ App.js
+                │   ├─ index.css
+                │   ├─ index.js
+                │   ├─ logo.svg
+                │   └─ serviceWorker.js
+                ├─ .enc
+                ├─ .gitignore
+                ├─ package.json
+                └─ README.md
+
+
+    </xmp>
+
+</body>
+</html>

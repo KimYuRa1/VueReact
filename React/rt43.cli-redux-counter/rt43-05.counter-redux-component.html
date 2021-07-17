@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+
+    <link rel="stylesheet" href="../css/reset.css" />
+</head>
+
+<body>
+
+    <xmp>
+        redux 를 react 프로그램에 적용하는 방법을 학습한다.
+
+        구독(subscribe) 설정 과 해제(unsubscribe ) 설정을 컴포넌트 안에서 하는 방법을 배운다.
+
+        Redux 작성 순서
+        0. Redux 플러그인 추가 or import.
+        import Redux from "redux";
+        console.log(window.Redux||window.dispatch||'Redux import 오류');
+        1. action상수/action함수 만들기
+        2. state 만들기. 예시) const initialState = { }
+        3. reducer 만들기. 예시) reducer이름(state = initialState, action)
+        4. reducer 합치기. 여러개의 리듀서를 하나로 합치기/ 예시) const reducer = Redux.combineReducers({ counter: reducer이름, });
+        5. store 만들기. store 만들기. Redux.createStore(reducer이름, preloadedState, enhancer).
+           리덕스 개발자 도구 적용. window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+        6. component 만들기
+        7. store subscribe/unsubscribe 설정
+        7-1. componentDidMount()에서 store subscribe 설정
+        7-2. componentWillUnmount()에서 store unsubscribe 설정
+        8. store dispatch 설정
+
+
+        <div>
+            <input type="button" value="+" onClick={this.handlerClickIncrement} />
+            <input type="button" value="-" onClick={this.handlerClickDecrement} />
+            <div>
+                {counter}
+            </div>
+        </div>
+    </xmp>
+
+    <img src="./redux_flow.png" alt="" style="padding-left: 30px;">
+
+    <hr>
+    <div id="app">
+
+    </div>
+</body>
+
+</html>

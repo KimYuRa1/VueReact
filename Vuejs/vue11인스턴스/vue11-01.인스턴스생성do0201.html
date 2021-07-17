@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Sample</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <!-- CSS import -->
+    <link rel="stylesheet" href="../css/reset.css">
+</head>
+
+<body>
+    <xmp>
+      학습할 내용
+        Vue 인스턴스 속성은 e dt mc^2 life cycle 이다.
+        Vue 인스턴스 생성 방법을 반복 학습한다.
+        CSS 태그 선택자에 대해 학습한다.
+
+    실습 1.
+        2개의 "{{message}}" 중에 두번째에만 "실습 완성 축하!!!!!" 가 나오게 작성하시오.
+        주어진 태그를 변경하지 않고 완성하는 것을 첫번째로 하나
+        태그를 바꾸거나 태그의 속성을 추가해서 완성해도 됩니다.
+
+
+     [참조]page 40
+    </xmp>
+    <hr>
+
+    <div>
+        {{ message }}, app1
+    </div>
+
+    <div id="id1">
+        {{ message }}, app2
+    </div>
+
+</body>
+
+</html>
+
+<!-- vue 플러그인 임포트   -->
+<script src="https://unpkg.com/vue@2.5.16/dist/vue.js">/* vue 플러그인 임포트 */</script>
+<script src="https://unpkg.com/vuex@3.3.0/dist/vuex.js"> /* vuex 플러그인 임포트 */</script>
+<script src="https://unpkg.com/vue-router@3.1.6/dist/vue-router.js"> /* vue 라우터 플러그인 임포트 */</script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"> /* axios 플러그인 임포트 */</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> /* jQuery 플러그인 임포트 */</script>
+<script>
+
+new Vue({
+    /* edtmc^2w */
+    el: "#id1",
+    data: {
+        /* 인스턴스 안에서 사용되는 변수 등록, 공유 변수 */
+
+        message : "실습 완성 축하!!!"
+
+    },
+    //template: ``,
+    methods: {
+        /* 이벤트 핸들러 등록 + 일반 메서드 */
+
+    },
+    components: {
+        /* 지역 컴포넌트 등록. 예시) "태그명" : 컴포넌트명 */
+
+    },
+    computed: {
+        /* 자동처리 + 동기식. 메서드로 작성. return 필수. */
+
+    },
+    watch: {
+        /* 자동처리 + 비동기식. data 에 등록된 프로퍼티 모니터링. 메서드로 작성. 매개변수 입력 필수  */
+
+    },
+    mounted: function() { //인스턴스 생성 후 처음만!
+        console.log("mounted");
+    },
+    updated: function() { //데이터가 변경될 때마다
+        console.log("updated");
+    },
+});
+
+</script>
