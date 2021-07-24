@@ -46,3 +46,69 @@
 </body>
 
 </html>
+
+<!-- vue 플러그인 임포트   -->
+<script src="https://unpkg.com/vue@2.5.16/dist/vue.js">/* vue 플러그인 임포트 */</script>
+<script src="https://unpkg.com/vuex@3.3.0/dist/vuex.js"> /* vuex 플러그인 임포트 */</script>
+<script src="https://unpkg.com/vue-router@3.1.6/dist/vue-router.js"> /* vue 라우터 플러그인 임포트 */</script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"> /* axios 플러그인 임포트 */</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> /* jQuery 플러그인 임포트 */</script>
+<script>
+
+Vue.component("component-top", {
+    /* pdtmc^2w */
+    props: ['propsdata'] ,
+    template: `
+    <p>{{propsdata}}</p>,
+    `,
+
+});
+
+Vue.component("component-bottom", {
+    /* pdtmc^2w */
+    props: ['propsdata'] ,
+
+    template: `
+
+    <p>{{propsdata}}</p>,
+    `,
+
+});
+
+new Vue({
+    /* edtmc^2w */
+    el: "#app",
+    data: {
+        /* 인스턴스 안에서 사용되는 변수 등록, 공유 변수 */
+
+        msgTop : "Top message!! passed from Parent Component ",
+        msgBtm: "Bottom message!! passed from Parent Component ",
+
+    },
+    //template: ``,
+    methods: {
+        /* 이벤트 핸들러 등록 */
+
+    },
+    components: {
+        /* 지역 컴포넌트 등록. 예시) "태그명" : 컴포넌트명 */
+
+    },
+    computed: {
+        /* 자동처리 + 동기식. 메서드로 작성. return 필수. */
+
+    },
+    watch: {
+        /* 자동처리 + 비동기식. data 에 등록된 프로퍼티 모니터링. 메서드로 작성. 매개변수 입력 필수  */
+
+    },
+    mounted: function() {
+        console.log("mounted");
+    },
+    updated: function() {
+        console.log("updated");
+    },
+});
+
+
+</script>

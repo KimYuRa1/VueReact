@@ -10,7 +10,7 @@
 
     <title>05-12</title>
 
-    <style>
+    <style>v-on:click="click"
         * {
             box-sizing: border-box;
         }
@@ -270,7 +270,7 @@
         </div>
 
         <!-- TodoList -->
-        <!-- "checked(todoItem.done)"  <==> "todoItem.done ? 'checked': ''"  -->
+        <!-- "checked(todoItem.done)"  <==> "  todoItem.done ? 'checked': null "  -->
         <section>
             <transition-group name="list" tag="ul">
                 <li v-for="(todoItem, index) in todoItems"
@@ -281,7 +281,7 @@
                     {{ todoItem.todo }}
                     <span class="removeBtn"
                           type="button"
-                          v-on:click="removeTodo(todoItem.id, index)">
+                          v-on:click.stop="removeTodo(todoItem.id, index)">
                         <i class="far fa-trash-alt" aria-hidden="true"></i>
                     </span>
                 </li>
@@ -294,9 +294,110 @@
         </div>
 
     </div>
-    
-    
+
+
 
 </body>
 
 </html>
+
+<!-- vue 플러그인 임포트   -->
+<script src="https://unpkg.com/vue@2.6.14/dist/vue.js">/* vue 플러그인 임포트 */</script>
+<script src="https://unpkg.com/vuex@3.3.0/dist/vuex.js"> /* vuex 플러그인 임포트 */</script>
+<script src="https://unpkg.com/vue-router@3.1.6/dist/vue-router.js"> /* vue 라우터 플러그인 임포트 */</script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"> /* axios 플러그인 임포트 */</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> /* jQuery 플러그인 임포트 */</script>
+<script>
+    new Vue({
+        /* edtmc^2w */
+        el: "#app",
+        data: {
+            /* 인슨턴스 안에서 사용되는 변수 등록, 공유 변수 */
+            newTodoItem: null,
+            showModal:false,
+            todoItems: [
+                { id: 1, todo: "영화보기", done: false },
+                { id: 2, todo: "주말 산책", done: true },
+                { id: 3, todo: "ES6 학습", done: false },
+                { id: 4, todo: "잠실 야구장", done: false }
+            ],
+        },
+        //template: ``,
+        methods: {
+            /* 이벤트 핸들러 등록 */
+            addTodo() {
+                // this.$data.todoItems 에서 최대 id 값을 구하기
+                let maxObj = null;
+                if( this.$data.todoItems.length > 0) {
+                    // this.$data.todoItems.reduce()를 사용하여 최대 id 값을 갖고있는 element 를 찾는다.
+                    maxObj = this.$data.todoItems.reduce( (prevObj, curtObj, index, array)=>{
+                        if( prevObj.id >= curtObj.id )
+                            return prevObj;
+                        else
+                            return curtObj;
+                    });
+                }
+                else {
+                    maxObj = {
+                        id: 0,
+                    }
+                }
+
+                const newTodo = {
+                    id: maxObj.id + 1,
+                    todo: this.$data.newTodoItem,
+                    done: false,
+                };
+                // this.$data.todoItems.push( newTodo );
+                this.$data.todoItems[ this.$data.todoItems.length ] = newTodo;
+
+                // add 후에 input 태그의 입력 값 지우기.
+                this.$data.newTodoItem = "";
+            },
+
+            checked(done){
+                if(done){
+                    return "checked";
+                }
+                else {
+                    return null;
+                }
+            },
+            
+            doneToggle(id, index){
+
+                // 방법1
+                // this.$data.todoItems[index].done = !this.$data.todoItems[index].done ;
+
+                // 방법2
+                // this.$set( this.$data.todoItems[index], "done", !this.$data.todoItems[index].done );
+
+                // 방법3
+                // 복제 후 재할당 해야함
+                const indexFind = this.$data.todoItems.findIndex( (item, index, array)=>{
+                    return item.id === id;
+                });
+
+                if( indexFind >= 0 ) {
+                    const newobj = {
+                        ...this.$data.todoItems[indexFind],
+                        done: !this.$data.todoItems[indexFind].done,
+                    };
+
+                    // this.$data.todoItems[indexFind] = newobj;
+                    this.$set( this.$data.todoItems, indexFind, newobj);
+                }
+
+            },
+            removeTodo(id, index){
+                // 복제 후 재할당 해야함
+                this.$data.todoItems.splice(index, 1);
+                // 이벤트 취소
+            },
+            clearAll(){
+                this.$data.todoItems = [];
+            }
+        },
+    });
+
+</script>

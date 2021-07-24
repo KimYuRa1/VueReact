@@ -89,8 +89,8 @@
             이미지 위에 마우스를 내리면(mouseout ) ==> ../images/but1.gif , ../images/img_swap_off.png
             이미지 위에 마우스를 올리면(mouseover) ==> ../images/but2.gif , ../images/img_swap_on.png
         </xmp>
-        <img src="img_but1" id="but1"     mouseover="imageover" mouseout="imageout" />
-        <img src="img_swap" id="img-swap" mouseover="imageover" mouseout="imageout" />
+        <img v-bind:src="img_but1" id="but1"     v-on:mouseover="imageover" v-on:mouseout="imageout" />
+        <img v-bind:src="img_swap" id="img-swap" v-on:mouseover="imageover" v-on:mouseout="imageout" />
         <hr />
 
         <xmp>
@@ -99,20 +99,20 @@
             span에 mouseup 이벤트 핸들러를 작성하시오.   ==> spanmouseup.   background-color를 pink로 설정
             span에 mouseout 이벤트 핸들러를 작성하시오.  ==> spanmouseout.  background-color를 red로 설정
         </xmp>
-        <span mouseover= "spanmouseover"
-              mousedown= "spanmousedown"
-              mouseup  = "spanmouseup"
-              mouseout = "spanmouseout" >
+        <span v-on:mouseover= "spanmouseover"
+              v-on:mousedown= "spanmousedown"
+              v-on:mouseup  = "spanmouseup"
+              v-on:mouseout = "spanmouseout" >
         </span>
-        <span mouseover= "spanmouseover"
-              mousedown= "spanmousedown"
-              mouseup  = "spanmouseup"
-              mouseout = "spanmouseout" >
+        <span v-on:mouseover= "spanmouseover"
+              v-on:mousedown= "spanmousedown"
+              v-on:mouseup  = "spanmouseup"
+              v-on:mouseout = "spanmouseout" >
         </span>
-        <span mouseover= "spanmouseover"
-              mousedown= "spanmousedown"
-              mouseup  = "spanmouseup"
-              mouseout = "spanmouseout">
+        <span v-on:mouseover= "spanmouseover"
+              v-on:mousedown= "spanmousedown"
+              v-on:mouseup  = "spanmouseup"
+              v-on:mouseout = "spanmouseout">
         </span>
         <hr />
 
@@ -124,13 +124,15 @@
             "vue23-01.v-for와배열.html" 를 참조하여 option 부분을 v-for 를 사용하도록 수정하시오.
 
         </xmp>
-        <select id="sel" change="selectchange">
-            <option value="../images/strawberry.gif">딸기</option>
-            <option value="../images/banana.gif">바나나</option>
-            <option value="../images/apple.gif" selected>사과</option>
+        <select id="sel" v-on:change="selectchange">
+            <option v-for="(option,index) in options"
+                    v-bind:key="index"
+                    v-bind:value="option.value">
+                {{ option.text }}
+            </option>
         </select>
 
-        <img id="img" src="img_select" />
+        <img id="img" v-bind:src="img_select" />
         <hr />
 
         <xmp>
@@ -151,52 +153,104 @@
 </html>
 
 <!-- vue 플러그인 임포트   -->
-<script src="https://unpkg.com/vue@2.5.16/dist/vue.js">/* vue 플러그인 임포트 */</script>
+<script src="https://unpkg.com/vue@2.6.14/dist/vue.js">/* vue 플러그인 임포트 */</script>
 <script src="https://unpkg.com/vuex@3.3.0/dist/vuex.js"> /* vuex 플러그인 임포트 */</script>
 <script src="https://unpkg.com/vue-router@3.1.6/dist/vue-router.js"> /* vue 라우터 플러그인 임포트 */</script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"> /* axios 플러그인 임포트 */</script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> /* jQuery 플러그인 임포트 */</script>
 <script>
+    new Vue({
+        /* edtmc^2w */
+        el: "#app",
+        data: {
+            /* 인슨턴스 안에서 사용되는 변수 등록, 공유 변수 */
+            img_image3: null,
+            img_but1:"../images/but1.gif",
+            img_swap:"../images/img_swap_off.png",
+            img_select: null,
+            options: [
+                {text:"딸기"  , value:"../images/strawberry.gif" },
+                {text:"바나나", value:"../images/banana.gif" },
+                {text:"사과"  , value:"../images/apple.gif" },
+            ],
+        },
+        //template: ``,
+        methods: {
+            /* 이벤트 핸들러 등록 */
+            imageclick: function(event) {
+                // <a class="image3" href="../images/image3.jpg" v-on:click="imageclick">
+                // href 값을 가져오려면
+                console.log(event.target.href);
+                this.$data.img_image3 = event.target.href;
 
-new Vue({
-    /* edtmc^2w */
-    el: "#app" ,
+                // 리다이렉트 만기: 이벤트 취소
+                event.preventDefault(); // 리다이렉트 취소
+                event.stopPropagation(); // 버블링 취소
+            },
+            imageover: function(event) {
+                console.log(event.target.id);
+                const id = event.target.id;
+                if(id === "but1"){
+                    this.$data.img_but1 = "../images/but2.gif";
+                }
+                else if(id ==="img-swap"){
+                    this.$data.img_swap = "../images/img_swap_on.png";
+                }
+            },
+            imageout: function(event) {
+                console.log(event.target);
+                const id = event.target.id;
+                if(id === "but1"){
+                    this.$data.img_but1 = "../images/but1.gif";
+                }
+                else if(id ==="img-swap"){
+                    this.$data.img_swap = "../images/img_swap_off.png";
+                }
+            },
+            spanmouseover: function(event){
+                console.log(event.target);
+                // background-color를 yellow 로 설정
+                // <span style="background-color:yellow로"
+                event.target.style.backgroundColor = "yellow";
+            },
+            spanmousedown: function(event){
+                console.log(event.target);
+                // background-color를 blue 로 설정
+                event.target.style.backgroundColor = "blue";
+            },
+            spanmouseup: function(event){
+                console.log(event.target);
+                // background-color를 pink 로 설정
+                event.target.style.backgroundColor = "pink";
+            },
+            spanmouseout: function(event){
+                console.log(event.target);
+                // background-color를 red 로 설정
+                event.target.style.backgroundColor = "red";
+            },
+            selectchange: function(event){
+                console.log(event.target.value);
+                this.$data.img_select = event.target.value;
+            },
+        },
+        components: {
+            /* 컴포넌트 등록. 예시) "태그명" : 컴포넌트명 */
 
-    data: {
-        /* 인스턴스 안에서 사용되는 변수 등록, 공유 변수 */
+        },
+        computed: {
+            /* 자동처리 + 동기식. 메서드로 작성. return 필수. */
 
-        image3 : null,
-        img_image3:null,
+        },
+        watch: {
+            /* 자동처리 + 비동기식. data 에 등록된 프로퍼티 모니터링. 메서드로 작성. 매개변수 필수. 외부 api 호출을 위해서 사용 */
 
-    },
-    //template: ``,
-    methods: {
-        /* 이벤트 핸들러 등록 */
-        imageclick : function(event){
-            this.$data.img_image3=event.target.href;
-            //event.stopPropagation();
-            event.preventDefault();
-
-        }
-    },
-    components: {
-        /* 지역 컴포넌트 등록. 예시) "태그명" : 컴포넌트명 */
-
-    },
-    computed: {
-        /* 자동처리 + 동기식. 메서드로 작성. return 필수. */
-
-    },
-    watch: {
-        /* 자동처리 + 비동기식. data 에 등록된 프로퍼티 모니터링. 메서드로 작성. 매개변수 입력 필수  */
-
-    },
-    mounted: function() {
-        console.log("mounted");
-    },
-    updated: function() {
-        console.log("updated");
-    },
-});
+        },
+        mounted: function() {
+            console.log("mounted");
+        },
+        updated: function() {
+            console.log("updated");
+        },
+    });
 
 </script>
