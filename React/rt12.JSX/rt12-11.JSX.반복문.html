@@ -41,3 +41,49 @@
 </body>
 
 </html>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js">
+    /* 자바스크립트로 컴파일러. ES6-->ES5, JSX-->ES5 */
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.12.0/umd/react.development.js">
+    /* import React, { Component, PureComponent } from "react" */
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.11.0/umd/react-dom.development.js">
+    /* import ReactDOM from "react-dom" */
+</script>
+<script type="text/babel">
+    const elements = ["One", "Two", "Three"];
+
+    class Loop3 extends React.Component {
+        render() { // JSX로 화면 만들기
+            let lis = null;
+            if( this.props.elements && this.props.elements.length>0 ){
+                lis = this.props.elements.map( (value, index, values)=>{
+                    return ( <li key={index}> {value}</li>)
+                });
+            }
+            return (
+                <div>
+                    {lis}
+                </div>
+            )
+        }
+    };
+    ReactDOM.render(<Loop3 elements={elements}></Loop3>, document.getElementById("wrap3"));
+
+    class Loop4 extends React.Component {
+        render() { // JSX로 화면 만들기
+            return (
+                <div>
+                    {   this.props.elements &&
+                        this.props.elements.length>0  &&
+                        this.props.elements.map( (value, index, values)=>{
+                            return ( <li key={index}> {value}</li>)
+                        })
+                    }
+                </div>
+            )
+        }
+    };
+    ReactDOM.render(<Loop4 elements={elements}></Loop4>, document.getElementById("wrap4"));
+</script>

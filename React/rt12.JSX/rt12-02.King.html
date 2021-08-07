@@ -1,18 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
-
-    <link rel="stylesheet" href="../css/reset.css"/>
-
-</head>
-
-<body>
-    <xmp>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport"
+            content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible"
+            content="ie=edge" />
+        <title>Document</title>
+        <link rel="stylesheet"
+            href="../css/reset.css" />
+    </head>
+    <body>
+        <xmp>
         작성  순서
             단계1: React 객체 스크립트 플러그인 추가 or 객체 import
             단계2. React 객체 import 여부 확인
@@ -35,27 +34,87 @@
         render() 에서 사용할 JSX
         <div>
             <King name="세종대왕">
-                <span>a</span>
+                <span>0</span>
             </King>
             <King name="이순신">
-                <span>b</span>
+                <span>1</span>
             </King>
             <King name="광개토">
-                <span>c</span>
+                <span>2</span>
             </King>
             <King name="왕건">
-                <span>d</span>
+                <span>3</span>
             </King>
         </div>
     </xmp>
-    <hr>
-
-    <div id="app">
-        <h3>세종대왕</h3>
-        <h3>이순신</h3>
-        <h3>광개토</h3>
-        <h3>왕건</h3>
-	</div>
-</body>
-
+        <hr>
+        <div id="app">
+            <h3>세종대왕</h3>
+            <h3>이순신</h3>
+            <h3>광개토</h3>
+            <h3>왕건</h3>
+        </div>
+    </body>
 </html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js">
+    /* 자바스크립트로 컴파일러. ES6-->ES5, JSX-->ES5 */
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.12.0/umd/react.development.js">
+    /* import React, { Component, PureComponent } from "react" */
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.11.0/umd/react-dom.development.js">
+    /* import ReactDOM from "react-dom" */
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-router-dom/5.2.0/react-router-dom.min.js">
+    /*  import ReactRouterDOM, {BroswerRouter,Switch,Router,Route,IndexRoute,Link,IndexLink,NavLink} from "react-router-dom" */
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.0.5/redux.js">
+    /* import Redux from "redux" */
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-redux/7.2.2/react-redux.js">
+    /*  import ReactRedux, {Provider} from "react-redux" */
+</script>
+<script src="https://unpkg.com/immer">
+    /* 불변객체 state를 조작하는 라이브러리 */
+    /* import immer from "immer" */
+</script>
+<script type="text/babel">
+
+
+    class King extends React.Component {
+        render() { // JSX로 화면 만들기
+            return (
+                <div>
+                    {this.props.name}
+                    <br />
+                    {this.props.children}
+                </div>
+            )
+        }
+    };
+
+    class KingContainer extends React.Component {
+
+        state = {
+            arr : ["세종대왕","이순신","광개토","왕건"],
+
+        }
+        render() { // JSX로 화면 만들기
+            const list = this.state.arr.map( (value, index) =>{
+                return (
+                    <King name={value}>
+                    <span>{index}</span>
+                    </King>
+                );
+            })
+            return (
+                {list}
+            )
+        }
+    };
+    //export default rt12-02.King;
+    //export default rt12-02.King;
+    ReactDOM.render(
+        <KingContainer></KingContainer>, document.getElementById("app")
+    );
+</script>

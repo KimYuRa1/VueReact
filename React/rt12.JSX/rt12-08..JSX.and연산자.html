@@ -14,39 +14,45 @@
     <xmp>
         JSX 안에서 조건부 렌더링 방법을 학습한다.
 
-        아래 사이트의 코드를 이용하여 클래스 컴포넌트를 만들어 본다.
-        참고: https://reactjs.org/docs/conditional-rendering.html
-
-        JSX 안에서 this.props.unreadMessages.length 가 0보다 큰 경우에만 아래 화면이 나오게 작성하시오.
-
-        JSX에서 사용할 코드
+        Mailbox 의 render() 에서 사용할 JSX 코드
         <div>
-            <h1>Hello!</h1>
-            {/* unreadMessages.length > 0 인 경우에만 나오게 하시오*/}
-            <h2>
-                You have {unreadMessages.length} unread messages.
-            </h2>
+            <h1>Hello!</h1>
+            {/* this.props.unreadMessages.length > 0 인 경우에만 나오게 하시오*/}
+            <h2>
+                You have unread messages.
+            </h2>
         </div>
 
+        JSX 안에서 this.props.unreadMessages.length 가 0보다 큰 경우에만
+        아래 메시지가 나오게 하시오
+        ==> You have unread messages.
 
-        function Mailbox(props) {
-            const unreadMessages = props.unreadMessages;
+        https://reactjs.org/docs/conditional-rendering.html 를 참고
+
+
+
+        class Mailbox extends React.Component {
+            render(){
+                return (
+                    <div>
+                        <h1>Hello!</h1>
+                        {/* this.props.unreadMessages.length > 0 인 경우에만 나오게 하시오*/}
+                        <h2>
+                            You have unread messages.
+                        </h2>
+                    </div>
+                );
+            }
+        }
+        class MailboxContainer extends React.Component {
+            state = {
+                messages: ['React'],
+            }
             return (
-                <div>
-                    <h1>Hello!</h1>
-                    {/*unreadMessages.length > 0 인 경우에만 나오게 하시오*/}
-                    <h2>
-                        You have {unreadMessages.length} unread messages.
-                    </h2>
-                </div>
+                <Mailbox unreadMessages={this.state.messages} />
             );
-          }
-
-        const messages = ['React', 'Re: React', 'Re:Re: React'];
-        ReactDOM.render(
-            <Mailbox unreadMessages={messages} />,
-            document.getElementById('root')
-        );
+        }
+        ReactDOM.render( <MailboxContainer />, document.getElementById('app') );
     </xmp>
     <hr>
 
@@ -54,3 +60,59 @@
 </body>
 
 </html>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js">
+    /* 자바스크립트로 컴파일러. ES6-->ES5, JSX-->ES5 */
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.12.0/umd/react.development.js">
+    /* import React, { Component, PureComponent } from "react" */
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.11.0/umd/react-dom.development.js">
+    /* import ReactDOM from "react-dom" */
+</script>
+<script type="text/babel">
+    //import React, {Component, PureComponent, Fragment} from "react";
+    //import Redux from "redux";
+    //import ReactRedux, {Provider} from "react-redux";
+    //import {BrowserRouter,Switch,Router,Route,IndexRoute,Link,IndexLink,NavLink} from "react-router-dom";
+    //import ReactDOM from "react-dom";
+
+    console.log(React);
+
+    class Mailbox extends React.Component {
+        render() { // JSX로 화면 만들기
+            return (
+                <div>
+                    <h1>Hello!</h1>
+                    {/* this.props.unreadMessages.length > 0 인 경우에만 나오게 하시오*/}
+                    { this.props.unreadMessages && this.props.unreadMessages.length > 0 && (
+                        <h2>
+                            You have unread messages.
+                        </h2>
+                    )}
+                    {
+                        this.props.unreadMessages ===null || this.props.unreadMessages.length === 0 &&(
+                        <h2>
+                            You have not messages.
+                        </h2>
+                        )
+                    }
+                </div>
+            )
+        }
+    };
+
+    class MailboxContainer extends React.Component {
+        state = {
+            // 상태값(변수)을 정의한다.
+            messages: [1],
+        }
+        render() { // JSX로 화면 만들기
+            return (
+                <Mailbox unreadMessages={this.state.messages} />
+            )
+        }
+    };
+    ReactDOM.render( <MailboxContainer/>, document.getElementById("app") );
+</script>
