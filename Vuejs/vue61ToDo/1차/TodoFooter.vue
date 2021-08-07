@@ -18,3 +18,13 @@
         <span class="clearAllBtn" v-on:click="clearAll">Clear All</span>
     </div>
 </template>
+<script>
+            export default {
+                /* pdtmc^2w */
+                props: [],
+                methods: {
+                    clearAll: function() {
+                    }
+                }
+            };
+            </script>

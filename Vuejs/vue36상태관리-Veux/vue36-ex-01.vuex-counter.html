@@ -77,3 +77,176 @@
 </body>
 
 </html>
+
+<!-- vue 플러그인 임포트   -->
+<script src="https://unpkg.com/vue@2.6.14/dist/vue.js">/* vue 플러그인 임포트 */</script>
+<script src="https://unpkg.com/vuex@3.3.0/dist/vuex.js"> /* vuex 플러그인 임포트 */</script>
+<script src="https://unpkg.com/vue-router@3.1.6/dist/vue-router.js"> /* vue 라우터 플러그인 임포트 */</script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"> /* axios 플러그인 임포트 */</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> /* jQuery 플러그인 임포트 */</script>
+<script>
+    // Vuex 인스턴스 만들기
+    var store = new Vuex.Store({
+        actions: {
+            /* 왜 actions를 사용하나? 비동기로 외부 함수 호출하기 위해서
+             * actions 에는 메서드만 등록 가능하다.
+             * 첫번째인자: 무조건 mutations로 고정.
+             * 두번째인자: 값. store.dispatch()호출시 넘겨지는 값.
+             */
+            addCounter: function( mutations/* 고정 */, param ){
+                //mutations.commit("addCounter", param );
+
+                // import axios from "axios";
+
+                axios({
+                    url: "http://localhost:5050/counter",  // 호출되는 서버 주소.
+                    method: "get",       // request method: get, post, delete, put
+                    params: { step : param},  // 서버로 보내는 데이터. 예시) { data1:"test1", data2:"test2" }
+                    timeout: 30000,    // 최대 대기 시간: 30초. 30초 이상이 되면 fail 부분이 실행됨.
+                    responseType: "json",  // response로 넘어오는 데이터 형태: text, html, xml, json, jsonp, script
+                })
+                .then( (res) => {
+                    debugger;
+                    console.log(res.data);
+                    //this.message1 = res.data;
+                    mutations.commit("addCounter", res.data );
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+            },
+            subCounter: function( mutations/* 고정 */, param ){
+                //mutations.commit("subCounter", param );
+
+                // import axios from "axios";
+
+                axios({
+                    url: "http://localhost:5050/counter",  // 호출되는 서버 주소.
+                    method: "get",       // request method: get, post, delete, put
+                    params: { step : param},  // 서버로 보내는 데이터. 예시) { data1:"test1", data2:"test2" }
+                    timeout: 30000,    // 최대 대기 시간: 30초. 30초 이상이 되면 fail 부분이 실행됨.
+                    responseType: "json",  // response로 넘어오는 데이터 형태: text, html, xml, json, jsonp, script
+                })
+                .then( (res) => {
+                    console.log(res.data);
+                    mutations.commit("subCounter", res.data );
+                    //this.message1 = res.data;
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+            },
+
+
+        },
+        mutations: {
+            /* 왜 mutations 를 사용하나? state 를 바꾸기 위해서
+             * mutations 에는 메서드만 등록 가능하다.
+             * 첫번째인자: 무조건 state 로 고정.
+             * 두번째인자: 값. mutations.commit() 호출시 넘겨지는 값.
+             * */
+            addCounter: function(state/* 고정 */, param/* mutations.commit 호출시 넘겨지는 값 */){
+                state.counter = /*state.counter + */ param;
+            },
+            subCounter: function(state/* 고정 */, param/* mutations.commit 호출시 넘겨지는 값 */){
+                state.counter =/*state.counter - */ param;
+            },
+        },
+        state: {
+            /* vue인스턴스나 컴포넌트의 data 프로퍼티에 해당 */
+            counter: 5,
+        },
+        getters: {
+            /* state 변경 정보를 컴포넌트에 전달하는 역활.
+             * 메서드로 만들어야 하며 메서드명은 state 의 이름을 그대로 사용
+             * 첫번째인자: 무조건 state
+             * 컴포넌트에서는 computed를 사용하여 store의 state 변경 정보를 자동으로 가져오게 된다.
+             * 예시) message()=> store.getters.인자;
+             */
+             counter: function(state/* 고정 */){
+                return state.counter;
+            },
+        },
+    });
+
+
+    var ComponentChild = {
+        /* pdtmc^2w */
+        // props: ["num"] ,
+        data: function() {
+            /* 컴포넌트 안에서 사용되는 변수 등록. 개별 변수 */
+            return {
+
+            }
+        },
+        template: `
+          <div class="component-child">
+              Child counter : {{ num }} <br>
+              <button name="child" v-on:click="addCounter">+</button>
+              <button name="child" v-on:click="subCounter">-</button>
+          </div>
+        `,
+        methods: {
+            /* 이벤트 핸들러 등록 */
+            addCounter(event){
+                console.log(event.target);
+                // 이벤트 발생시키기
+                // 부모는 2개의 인자를 달라고 한다.
+                //this.$emit("add-counter", event, +10);
+                store.dispatch( "addCounter" , 10 );
+            },
+            subCounter(event){
+                console.log(event.target);
+                // 이벤트 발생시키기
+                // 부모는 2개의 인자를 달라고 한다.
+                //this.$emit("sub-counter", event, -10);
+                store.dispatch( "subCounter" , -10 );
+            },
+        },
+        computed:{
+            num: function(){
+                return store.getters.counter;
+            }
+        }
+    };
+
+    new Vue({
+        /* edtmc^2w */
+        el: "#app",
+        data: {
+            /* 인스턴스 안에서 사용되는 변수 등록, 공유 변수 */
+            //counter: 0,
+        },
+        //template: ``,
+        methods: {
+            /* 이벤트 핸들러 등록 */
+            addCounter(event, param){
+                console.log(event.target);
+                //this.$data.counter = this.$data.counter + param;
+                //this.$set( this.$data, "counter", this.$data.counter + param);
+                store.dispatch( "addCounter" , 5 );
+            },
+            subCounter(event, param){
+                console.log(event.target);
+                // this.$data.counter = this.$data.counter + param;
+                //this.$set( this.$data, "counter", this.$data.counter + param);
+                store.dispatch( "subCounter" , 5 );
+            },
+        },
+        components: {
+            /* 전역 컴포넌트는 등록하지 않아도 사용할 수 있다. */
+            /* 지역 컴포넌트 등록. 예시) "태그명" : 컴포넌트명 */
+            "component-child": ComponentChild
+        },
+        computed:{
+            counter: function(){
+                return store.getters.counter;
+            }
+        },
+        mounted: function() {
+            console.log("mounted");
+            //store.dispatch("addCounter", 0);
+        }
+    });
+
+</script>

@@ -12,3 +12,10 @@ h1 {
     </header>
 </template>
 
+<script>
+            export default {
+                /* pdtmc^2w */
+                props: []
+            };
+            </script>
+
