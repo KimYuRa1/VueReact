@@ -142,4 +142,4 @@ class CrudListItem extends React.Component {
           return formView;
   }
 };
-export default CrudItemList;
+export default CrudListItem;

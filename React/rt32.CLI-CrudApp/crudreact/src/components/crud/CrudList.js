@@ -1,5 +1,5 @@
 import React from "react";
-import CrudListItem from "./CrudItemList";
+import CrudListItem from "./CrudListItem";
 
 class CrudList extends React.Component {
 
