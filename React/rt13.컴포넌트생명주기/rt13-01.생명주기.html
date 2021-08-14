@@ -33,3 +33,105 @@
 </body>
 
 </html>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js">
+    /* 자바스크립트로 컴파일러. ES6-->ES5, JSX-->ES5 */
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.12.0/umd/react.development.js">
+    /* import React, { Component, PureComponent } from "react" */
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.11.0/umd/react-dom.development.js">
+    /* import ReactDOM from "react-dom" */
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-router-dom/5.2.0/react-router-dom.min.js">
+    /*  import ReactRouterDOM, {BroswerRouter,Switch,Router,Route,IndexRoute,Link,IndexLink,NavLink} from "react-router-dom" */
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.0.5/redux.js">
+    /* import Redux from "redux" */
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-redux/7.2.2/react-redux.js">
+    /*  import ReactRedux, {Provider} from "react-redux" */
+</script>
+<script src="https://unpkg.com/immer">
+    /* 불변객체 state를 조작하는 라이브러리 */
+    /* import immer from "immer" */
+</script>
+<script type="text/babel">
+
+//import React, {Component, PureComponent, Fragment} from "react";
+//import Redux from "redux";
+//import ReactRedux, {Provider} from "react-redux";
+//import {BrowserRouter,Switch,Router,Route,IndexRoute,Link,IndexLink,NavLink} from "react-router-dom";
+//import ReactDOM from "react-dom";
+
+console.log(React);
+
+class App extends React.Component {
+
+    static defaultProps = {  /*  props의 디폴트 값 설정 */  }
+    static propsTypes = {  /* props의 프로퍼티 타입 설정 */ }
+    state = {
+        // 상태값(변수)을 정의한다.
+        counter : 0,
+    }
+    style = {
+        // 컴포넌트 내부에서 사용할 인라인 스타일을 정의한다.
+        // getter 를 사용하면 객체 내부 참조가 가능하다.
+
+    }
+    func = {
+        // func에 정의된 메서드는 반드시 constructor에서 this를 bind() 처리해야 한다.
+        // func에는 자식 컴포넌트에 넘길 메서드만 작성한다.
+        // 왜 자식에게 부모 메서드를 넘기나? 부모의 상태값을 변경하기 위해서.
+
+    }
+    constructor(props) {
+        super()
+        // this 바인딩. 예시) this.func.handler = this.func.handler.bind(this)
+        // func 에 정의한 메서드는 반드시 this bind 처리해야 한다.
+
+        // ref 만들기. 예시) this.inputref = React.createRef()
+
+    }
+    constructor(props){
+        super();
+        console.log("constructor");
+    }
+    componentDidMount() {
+        // 마운트 완료 후에 실행됨 : 페이지 load 될 때 한번
+        // componentDidMount가 사용되는 경우: redux 구독 설정, focus 줄때
+        console.log("componentDidmount");
+
+    }
+    componentDidUpdate(prevProps, prevState) {
+        // 업데이트 완료 후에 실행됨 : 여러번, state 가 변경될 때마다
+        console.log("componentUpdate");
+    }
+    componentWillUnmount() {
+        // 언마운트 완료 후에 실행됨 : 페이지 unload 될 때 한번
+        // componentWillUnmount가 사용되는 경우: redux 구독 해제, 이벤트 핸들러 해제
+        console.log("componentWillUnmount");
+    }
+    btnClick = (event)=>{
+        // 이벤트 핸들러는 화살표 함수로 만들면 this bind()를 생략해도 된다
+        console.log(event.target);
+
+        this.setState({
+            ...this.state,
+            counter : this.state.counter + 1
+        })
+    }
+    render() { // JSX로 화면 만들기
+        return (
+            <div>
+                {this.state.counter}
+                <br/>
+                <button onClick={this.btnClick}>setState</button>
+            </div>
+        )
+    }
+};
+
+ReactDOM.render(<App></App>, document.getElementById("app"));
+//export default rt13-01.생명주기;
+</script>

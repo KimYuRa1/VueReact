@@ -13,11 +13,11 @@
 <body>
     <pre>
 
-    전자 시계를 만들면서 React의 클래스 컴포넌트 만드는 방법을 학습한다.
-    1. 클래스 컴포넌트를 만드시오.
+    전자 시계를 만들면서 React의 클래스 컴포넌트 만드는 방법을 학습한다.
+    1. 클래스 컴포넌트를 만드시오.
         컴포넌트명: ElectronClock
-    2. JSX 에서 style 작성법을 학습한다.     
-       font-size: 80pt;
+    2. JSX 에서 style 작성법을 학습한다.
+       font-size: 80pt;
     3. 현재 시간 얻는 방법:
         hms = new Date().toLocaleTimeString();
         또는
@@ -26,8 +26,8 @@
         const m = d.getMinutes();
         const s = d.getSeconds();
 
-    4. 매초 렌더링의 개념을 익한다. 
-        window.setInterval(함수, 시간) 사용 
+    4. 매초 렌더링의 개념을 익한다.
+        window.setInterval(함수, 시간) 사용
 
 
     작업순서
@@ -50,3 +50,45 @@
 </body>
 
 </html>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js">
+    /* 자바스크립트로 컴파일러. ES6-->ES5, JSX-->ES5 */
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.12.0/umd/react.development.js">
+    /* import React, { Component, PureComponent } from "react" */
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.11.0/umd/react-dom.development.js">
+    /* import ReactDOM from "react-dom" */
+</script>
+<script type="text/babel">
+    class ElectronClock extends React.Component {
+        state = {
+            hms: null,
+        }
+        componentDidMount(){
+            window.setInterval(
+                ()=>{
+                    // this.state.hms = new Date().toLocaleTimeString();
+                    this.setState({
+                        ...this.state,
+                        hms: new Date().toLocaleTimeString(),
+                    });
+                },
+                1000
+            );
+        }
+        render() { // JSX로 화면 만들기{
+            const style = {
+                //"font-size:80pt;"
+                fontSize:"80pt",
+            }
+            return (
+                <div style={style}>
+                    {this.state.hms}
+                </div>
+            )
+        }
+    };
+    ReactDOM.render( <ElectronClock></ElectronClock>, document.getElementById("app"));
+
+</script>

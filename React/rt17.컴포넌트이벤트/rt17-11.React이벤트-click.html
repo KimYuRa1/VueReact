@@ -27,7 +27,7 @@
         컴포넌트 생성과 click 이벤트 핸들러 작성을 실습한다.
 
         1. Greeting 컴포넌트 만들기
-            
+
             return (
                 <div>
                     <div style={this.style.style1} onClick={this.handlerClick1}>
@@ -75,3 +75,82 @@
 </body>
 
 </html>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js">
+    /* 자바스크립트로 컴파일러. ES6-->ES5, JSX-->ES5 */
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.12.0/umd/react.development.js">
+    /* import React, { Component, PureComponent } from "react" */
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.11.0/umd/react-dom.development.js">
+    /* import ReactDOM from "react-dom" */
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-router-dom/5.2.0/react-router-dom.min.js">
+    /*  import ReactRouterDOM, {BroswerRouter,Switch,Router,Route,IndexRoute,Link,IndexLink,NavLink} from "react-router-dom" */
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.0.5/redux.js">
+    /* import Redux from "redux" */
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-redux/7.2.2/react-redux.js">
+    /*  import ReactRedux, {Provider} from "react-redux" */
+</script>
+<script src="https://unpkg.com/immer">
+    /* 불변객체 state를 조작하는 라이브러리 */
+    /* import immer from "immer" */
+</script>
+<script type="text/babel">
+    //import React, {Component, PureComponent, Fragment} from "react";
+    //import Redux from "redux";
+    //import ReactRedux, {Provider} from "react-redux";
+    //import {BrowserRouter,Switch,Router,Route,IndexRoute,Link,IndexLink,NavLink} from "react-router-dom";
+    //import ReactDOM from "react-dom";
+
+    console.log(React);
+
+    class Greeting extends React.Component {
+
+        constructor(props){
+            super()
+            this.handlerClick1=this.handlerClick1.bind(this);
+        }
+        style = {
+            style1 : {
+                width: "100px",
+                height: "100px",
+                verticalAlign: "center",
+                lineHeight: "100px",
+                background: "gray",
+
+            },
+            style2 : {
+                width: "100px",
+                height: "100px",
+                verticalAlign: "center",
+                lineHeight: "100px",
+                background: "yellow",
+
+            }
+
+        }
+        handlerClick1(event){
+
+        }
+        handlerClick2 = (event)={
+
+        }
+        render() { // JSX로 화면 만들기
+            return (
+                <div>
+                    <div style={this.style.style1} onClick={this.handlerClick1}>
+                        div1
+                    </div>
+                    <div style={this.style.style2} onClick={this.handlerClick2}>
+                        div2
+                    </div>
+                </div>
+            )
+        }
+    };
+    ReactDOM.render(<Greeting></Greeting>, document.getElementById("app"));
+    //export default Greeting;
+</script>

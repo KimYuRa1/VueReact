@@ -87,25 +87,7 @@
                 document.getElementById("app")
             )
 
-        3. className 설정을 컴포넌트의 인라인스타일로 바꾼다.
-            className="card"
-            ==>
-            styleSquare = {
-                height: "150px",
-                backgroundColor: "#ff6663",
-            }
-
-            className="label"
-            ==>
-            styleLabel = {
-                fontFamily: "sans-serif",
-                fontWeight: "bold",
-                padding: "13px",
-                margin: "0",
-                textAlign: "center",
-            }
-
-        4. 상태값(state), 속성값(props), 메서드(this.func), 인라인스타일(this.style) 가 있다가 했을 때
+        3. 상태값(state), 속성값(props), 메서드(this.func), 인라인스타일(this.style) 가 있다가 했을 때
            위의 속성을 모두를 자식 컴포넌트에 넘기려면 어떻게 하면될까요?
             <Square {...this.props, ...this.state, ...this.func, ...this.style }></Square> 라고 했을 때
     </xmp>
@@ -141,3 +123,71 @@
     </div>
 </body>
 </html>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js">
+    /* 자바스크립트로 컴파일러. ES6-->ES5, JSX-->ES5 */
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.12.0/umd/react.development.js">
+    /* import React, { Component, PureComponent } from "react" */
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.11.0/umd/react-dom.development.js">
+    /* import ReactDOM from "react-dom" */
+</script>
+<script type="text/babel">
+
+    class Label extends React.Component {
+        render() { // JSX로 화면 만들기
+            const {color} = this.props;
+
+            return (
+                <div className="label">
+                    {color}
+                </div>
+            )
+        }
+    };
+
+    class Square extends React.Component {
+        render() { // JSX로 화면 만들기
+
+            const {color} = this.props;
+
+            const style = {
+                // background-color: #ffa737;
+                // backgroundColor: "#ffa737",
+                backgroundColor: color,
+            }
+            return (
+                <div className="square" style={style}>
+                    &nbsp;
+                </div>
+            )
+        }
+    };
+
+    class Card extends React.Component {
+        render() { // JSX로 화면 만들기
+            //const {color} = this.props;
+            return (
+                <div className="card">
+                    <Square {...this.props}></Square>
+                    <Label {...this.props}></Label>
+                </div>
+            )
+        }
+    };
+
+    class CardContainer extends React.Component {
+        render() { // JSX로 화면 만들기
+            return (
+                <div>
+                    <Card color={"#ff6663"}></Card>
+                    <Card color={"#ffa737"}></Card>
+                </div>
+            )
+        }
+    };
+
+    ReactDOM.render(<CardContainer></CardContainer>, document.getElementById("app"));
+
+</script>

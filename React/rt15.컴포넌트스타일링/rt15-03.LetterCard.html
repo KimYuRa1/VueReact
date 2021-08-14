@@ -26,13 +26,13 @@
         컴포넌트에 인라인 스타일링을 사용한다.
 
         작업 순서
-        1. LetterCard 컴포턴트 만들기. <== 각자
+        1. 프리젠테이션 컴포넌트 LetterCard 만들기. <== 각자
             아래의 html 코드를 컴포넌트로 만들기
             <div class="letter" style="background-color:#58B3FF;">A</div>
 
-        2. ReactDOM 을 사용하여 화면에 붙인다. <== 각자
-            예시)
-            ReactDOM.render(
+        2. 컨테이너 컴포넌트 LetterContainer 만들기. <== 각자
+        render(){
+            return(
                 <div>
                     <LetterCard bgcolor={"#58B3FF"} letter={"A"}></LetterCard>
                     <LetterCard bgcolor={"#FF605F"} letter={"E"}></LetterCard>
@@ -40,22 +40,29 @@
                     <LetterCard bgcolor={"#49DD8E"} letter={"O"}></LetterCard>
                     <LetterCard bgcolor={"#AE99FF"} letter={"U"}></LetterCard>
                 </div>
+            )
+        }
+
+        3. ReactDOM 을 사용하여 화면에 붙인다. <== 각자
+            예시)
+            ReactDOM.render(
+                <LetterContainer></LetterContainer>
                 ,
                 document.getElementById("app")
             );
 
-        3. LetterCard 컴포넌트에서는 background-color 값을
+        4. LetterCard 컴포넌트에서는 background-color 값을
             부모에서 bgcolor 속성값을 넘기면 받아서 사용하도록 한다.
             예시)
             <LetterCard bgcolor={"#FFD52E"}>I</LetterCard>
 
-        4. 자식 태그를 넘겨 받는 방법은 this.props.children 을 사용한다.
+        5. 자식 태그를 넘겨 받는 방법은 this.props.children 을 사용한다.
             예시)
             <LetterCard bgcolor={"#FFD52E"}>
                 <span>I</span>  <== this.props.children 을 사용하여 받을 수 있다.
             </LetterCard>
 
-        5.
+        6.
             {
                 padding: 10px;
                 margin: 10px;
@@ -72,19 +79,19 @@
             <div style={{...this.style.style1, ...{backgrondColor: this.props.bgcolor} }}>
             </div>
 
-        6. ReactDOM 을 사용하여 화면에 붙인다. <== 같이
+        6. LetterContainer 을 사용하여 화면에 붙인다. <== 같이
             예시)
-            ReactDOM.render(
-                <div>
-                    <LetterCard bgcolor={"#58B3FF"} letter={"A"}> A </LetterCard>
-                    <LetterCard bgcolor={"#FF605F"} letter={"E"}> E </LetterCard>
-                    <LetterCard bgcolor={"#FFD52E"} letter={"I"}><span>I</span></LetterCard>
-                    <LetterCard bgcolor={"#49DD8E"} letter={"O"}><span>O</span></LetterCard>
-                    <LetterCard bgcolor={"#AE99FF"} letter={"U"}><span>U</span></LetterCard>
-                </div>
-                ,
-                document.getElementById("app")
-            );
+            render(){
+                return(
+                    <div>
+                        <LetterCard bgcolor={"#58B3FF"} letter={"A"}> A </LetterCard>
+                        <LetterCard bgcolor={"#FF605F"} letter={"E"}> E </LetterCard>
+                        <LetterCard bgcolor={"#FFD52E"} letter={"I"}><span>I</span></LetterCard>
+                        <LetterCard bgcolor={"#49DD8E"} letter={"O"}><span>O</span></LetterCard>
+                        <LetterCard bgcolor={"#AE99FF"} letter={"U"}><span>U</span></LetterCard>
+                    </div>
+                )
+            }
     </xmp>
     <hr>
 
@@ -103,3 +110,97 @@
     </div>
 </body>
 </html>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js">
+    /* 자바스크립트로 컴파일러. ES6-->ES5, JSX-->ES5 */
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.12.0/umd/react.development.js">
+    /* import React, { Component, PureComponent } from "react" */
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.11.0/umd/react-dom.development.js">
+    /* import ReactDOM from "react-dom" */
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-router-dom/5.2.0/react-router-dom.min.js">
+    /*  import ReactRouterDOM, {BroswerRouter,Switch,Router,Route,IndexRoute,Link,IndexLink,NavLink} from "react-router-dom" */
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.0.5/redux.js">
+    /* import Redux from "redux" */
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-redux/7.2.2/react-redux.js">
+    /*  import ReactRedux, {Provider} from "react-redux" */
+</script>
+<script src="https://unpkg.com/immer">
+    /* 불변객체 state를 조작하는 라이브러리 */
+    /* import immer from "immer" */
+</script>
+<script type="text/babel">
+    //import React, {Component, PureComponent, Fragment} from "react";
+    //import Redux from "redux";
+    //import ReactRedux, {Provider} from "react-redux";
+    //import {BrowserRouter,Switch,Router,Route,IndexRoute,Link,IndexLink,NavLink} from "react-router-dom";
+    //import ReactDOM from "react-dom";
+
+    console.log(React);
+
+    class LetterCard extends React.Component {
+
+        render() { // JSX로 화면 만들기
+            //const bgcolor = this.props.bgcolor;
+            //const letter = this.props.letter;
+            //분해할당
+            const {bgcolor, letter} = this.props;
+
+            const style={
+                //"background-color:#58B3FF;"
+                //backgroundColor: "#58B3FF" ,
+                backgroundColor : bgcolor,
+            }
+            let lc= null,
+
+            if(this.props.children){
+                lc = this.props.children;
+
+            }
+            else{
+                lc=letter;
+            }
+            return (
+                <div className="letter" style={style}>
+                    {lc}
+                </div>
+
+
+            )
+        }
+    };
+
+
+    class LetterContainer extends React.Component {
+
+        state = {
+            // 상태값(변수)을 정의한다.
+
+        }
+
+        render() { // JSX로 화면 만들기
+            return (
+                <div>
+                    <LetterCard bgcolor={"#58B3FF"} letter={"A"}></LetterCard>
+                    <LetterCard bgcolor={"#FF605F"} letter={"E"}></LetterCard>
+                    <LetterCard bgcolor={"#FFD52E"} letter={"I"}>
+                        <span>I</span>
+                    </LetterCard>
+                    <LetterCard bgcolor={"#49DD8E"} letter={"O"}>
+                        <span>O</span>
+                    </LetterCard>
+                    <LetterCard bgcolor={"#AE99FF"} letter={"U"}>
+                        <span>U</span>
+                    </LetterCard>
+                </div>
+
+            )
+        }
+    };
+    ReactDOM.render(<LetterContainer></LetterContainer>, document.getElementById("app"));
+
+</script>
